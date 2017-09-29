@@ -3,6 +3,9 @@
 //
 // Author: Shuo Chen (chenshuo at chenshuo dot com)
 
+//CAS，封装了几个无锁并发操作。多线程可以安全使用
+//使用：  AtomicInt32 atomic_int32 = new AtomicInt32(); atomic_int32->get();atomic_int32->increment(); ...等等
+
 #ifndef MUDUO_BASE_ATOMIC_H
 #define MUDUO_BASE_ATOMIC_H
 
