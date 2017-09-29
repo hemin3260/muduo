@@ -7,6 +7,9 @@
 
 #include <errno.h>
 
+/*
+封装了pthread_cond_timewait 原函数只支持时间戳，这个函数支持传入秒
+*/
 // returns true if time out, false otherwise.
 bool muduo::Condition::waitForSeconds(double seconds)
 {
