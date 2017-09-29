@@ -48,6 +48,8 @@ namespace muduo
 //   mutable MutexLock mutex_;
 //   std::vector<int> data_; // GUARDED BY mutex_
 // };
+  
+ //定义了一个mutexLock对象，除了mutex，还有pid
 class MutexLock : boost::noncopyable
 {
  public:
@@ -96,6 +98,7 @@ class MutexLock : boost::noncopyable
  private:
   friend class Condition;
 
+  //定义了一个unassignGuard类，用来转移转移pid？
   class UnassignGuard : boost::noncopyable
   {
    public:
@@ -134,6 +137,10 @@ class MutexLock : boost::noncopyable
 //   MutexLockGuard lock(mutex_);
 //   return data_.size();
 // }
+//定义了一个MutexLockGuard
+//使用：栈上变量MutexLockGuard mg(mutex);
+ //无法使用 MutextLockGuard mg = new MutexLockGuard(mutex);delete mg;
+ // #define MutexLockGuard(x) error "Missing guard object name"
 class MutexLockGuard : boost::noncopyable
 {
  public:
