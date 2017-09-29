@@ -16,6 +16,8 @@
 namespace muduo
 {
 
+ //封装的一个线程安全的deque，可以安全地take,put
+ //通过封装好的mutex和condition处理
 template<typename T>
 class BlockingQueue : boost::noncopyable
 {
