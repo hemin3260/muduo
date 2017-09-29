@@ -27,10 +27,17 @@ class Condition : boost::noncopyable
   {
     MCHECK(pthread_cond_destroy(&pcond_));
   }
-
+  
+ //UnassignGuard 表示mutex不属于当前的pid了，当最desctructor时，又会被重新赋值
+ //因为wait是有释放锁的过程，它返回的时候，再次锁定
+ //局限就是，如果wait之后还有很多操作，会导致没有即使赋值
+ //这里的想法是：因为封装了MutexLock类，并且这个类有自己的pid，那么在pthread_cond_wait的时候，会有一个
+ //锁定和释放的过程。这个过程是已经封装了的，怎么让这个过程去修改pid。因此引入了一个unassignGuard的中间类
+ 
   void wait()
   {
     MutexLock::UnassignGuard ug(mutex_);
+    //友类，所以可以访问
     MCHECK(pthread_cond_wait(&pcond_, mutex_.getPthreadMutex()));
   }
 
