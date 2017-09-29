@@ -15,8 +15,9 @@
 
 namespace muduo
 {
-
-template<typename T>
+//封装一个有上限制的queue，通过封装好的condition，mutex处理
+//boot::circular_buffer
+ template<typename T>
 class BoundedBlockingQueue : boost::noncopyable
 {
  public:
